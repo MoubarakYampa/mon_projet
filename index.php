@@ -41,7 +41,7 @@
 <body>
     <div class="card">
         <h1>👋 Bonjour !</h1>
-        <p>Bienvenue sur mon site PHP tournant dans Docker 🚀</p>
+        <p>Bienvenue sur mon site PHP tournant dans Docker Moubarak 🚀</p>
         <div class="footer">
             <?php echo "Page générée le " . date("d/m/Y à H:i:s"); ?>
         </div>
