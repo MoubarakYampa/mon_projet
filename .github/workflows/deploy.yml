@@ -24,9 +24,8 @@ jobs:
       - name: Déployer via SSH
         run: |
           ssh -o StrictHostKeyChecking=no snake@192.168.1.28 << EOF
-  cd /home/snake/Desktop/mon_projet
-  git pull origin master
-  echo "Déploiement réussi"
-EOF
-
+          cd /home/snake/Desktop/mon_projet
+          git pull origin master
+          echo "Déploiement réussi"
+          EOF
 
