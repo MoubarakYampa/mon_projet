@@ -17,15 +17,15 @@ jobs:
         run: curl https://api.ipify.org
 
       - name: Configurer l’agent SSH avec la clé privée
-  	uses: webfactory/ssh-agent@v0.7.0
-  	with:
-    	ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-    
+        uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
       - name: Déployer via SSH
         run: |
           ssh -o StrictHostKeyChecking=no snake@192.168.1.28 << EOF
-          cd /home/snake/Desktop/mon_projet
-          git pull origin master
-          echo "Déploiement réussi"
+            cd /home/snake/Desktop/mon_projet
+            git pull origin master
+            echo "Déploiement réussi"
           EOF
 
