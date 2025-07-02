@@ -1,26 +1,32 @@
-name: 🚀 Deploy index.php automatically
+name: Déploiement automatique
 
 on:
   push:
     branches:
-      - main  # ou master si c'est ta branche
+      - master  # ou 'main' si ta branche principale est main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: ✅ Cloner le code
+      - name: Checkout du code
         uses: actions/checkout@v3
 
-      - name: 🔐 Configurer la connexion SSH
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_ed25519
-          chmod 600 ~/.ssh/id_ed25519
-          ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+      - name: Afficher IP publique du runner (debug)
+        run: curl https://api.ipify.org
 
-      - name: 🚀 Déployer via rsync
+      - name: Configurer l’agent SSH avec la clé privée
+        uses: webfactory/ssh-agent@v0.8.1
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Déployer via SSH
         run: |
-          rsync -avz --delete index.php ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/var/www/html/
+          ssh -o StrictHostKeyChecking=no snake@192.168.1.28 << EOF
+  cd /home/snake/Desktop/mon_projet
+  git pull origin master
+  echo "Déploiement réussi"
+EOF
+
 
