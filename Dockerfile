@@ -1,9 +1,14 @@
-# Utiliser une image PHP avec serveur Apache
-FROM php:8.2-apache
+# 1. Use the official PHP image based on Alpine
+FROM php:8.2-alpine
 
-# Copier le fichier index.php dans le dossier par défaut d'Apache
-COPY index.php /var/www/html/
+# 2. Set the working directory for the application
+WORKDIR /app
 
-# Expose le port 80
+# 3. Copy your PHP file into the container
+COPY index.php .
+
+# 4. Expose the port
 EXPOSE 80
 
+# 5. Start PHP's built-in web server when the container launches
+CMD ["php", "-S", "0.0.0.0:80"]
